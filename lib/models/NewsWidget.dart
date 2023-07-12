@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class NewsWidget extends StatelessWidget {
   final News news;
 
-  const NewsWidget({Key key, this.news}) : super(key: key);
+  const NewsWidget({
+    Key? key,
+    required this.news,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -25,9 +28,9 @@ class NewsWidget extends StatelessWidget {
                   child: Text(
                     news.newsTitle,
                     style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontFamily: 'Righteous',
-                            fontSize: 24),
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Righteous',
+                        fontSize: 24),
                   ),
                 ),
               ),

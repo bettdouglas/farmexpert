@@ -32,14 +32,14 @@ class Cart extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: <Widget>[] +
-                      cartModel.cartItems.keys
-                          .map(
-                            (item) => CartWidget(
-                              item: item,
-                              count: cartModel.cartItems[item],
-                            ),
-                          )
-                          .toList(),
+                      cartModel.cartItems.entries.map(
+                        (mapEntry) {
+                          return CartWidget(
+                            item: mapEntry.key,
+                            count: mapEntry.value,
+                          );
+                        },
+                      ).toList(),
                 ),
               ),
               Padding(
@@ -54,10 +54,13 @@ class Cart extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        RaisedButton(
-                          shape: BeveledRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          color: Colors.orange,
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            foregroundColor: Colors.orange,
+                          ),
                           child: Text(
                             "Checkout",
                             style: TextStyle(
@@ -66,7 +69,10 @@ class Cart extends StatelessWidget {
                                 fontSize: 18),
                           ),
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>CartCheckout()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartCheckout()));
                           },
                         ),
                         Text(
@@ -95,7 +101,10 @@ class CartWidget extends StatefulWidget {
   final Item item;
   final int count;
 
-  CartWidget({this.item, this.count});
+  CartWidget({
+    required this.item,
+    required this.count,
+  });
 
   @override
   _CartWidgetState createState() => _CartWidgetState();
@@ -106,7 +115,6 @@ class _CartWidgetState extends State<CartWidget> {
   Widget build(BuildContext context) {
     var cartModel = Provider.of<CartModel>(context);
     var screeHeight = MediaQuery.of(context).size.height;
-    var screeWidth = MediaQuery.of(context).size.width;
     return Container(
       padding: EdgeInsets.all(4.0),
       height: screeHeight * 0.15,

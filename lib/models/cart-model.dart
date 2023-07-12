@@ -8,23 +8,18 @@ class CartModel with ChangeNotifier {
   CartModel();
 
   void addItem(Item item) {
-    if (item == null) {
-      print("Cannot add empty item");
-    } else {
-      if (_cartItems.keys.contains(item)) {
-        _cartItems[item] += 1;
-      } else {
-        _cartItems[item] = 1;
-      }
-    }
+    final itemCount = _cartItems[item];
+    _cartItems[item] = (itemCount ?? 0) + 1;
     notifyListeners();
   }
 
   void decrementOrder(Item item) {
-    if (_cartItems.keys.contains(item)) {
-      _cartItems[item] -= 1;
-      if (_cartItems[item] == 0) {
+    if (_cartItems.containsKey(item)) {
+      final itemCount = _cartItems[item];
+      if (itemCount == 0) {
         _cartItems.remove(item);
+      } else {
+        _cartItems[item] = (itemCount ?? 0) - 1;
       }
     }
     notifyListeners();
@@ -37,11 +32,14 @@ class CartModel with ChangeNotifier {
 
   double computeTotal() {
     double totalSum = 0;
-    var keys = _cartItems.keys.toList();
-    for (var key in keys) {
-      var itemPrice = _cartItems[key] * key.price;
-      totalSum += itemPrice;
-    }
+
+    _cartItems.entries.forEach((entry) {
+      final item = entry.key;
+      final itemCount = entry.value;
+
+      final itemsTotals = item.price * itemCount;
+      totalSum += itemsTotals;
+    });
     return totalSum;
   }
 }

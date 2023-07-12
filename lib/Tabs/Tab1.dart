@@ -1,4 +1,3 @@
-import 'package:farmexpert/Cart.dart';
 import 'package:farmexpert/models/News.dart';
 import 'package:farmexpert/models/NewsPage.dart';
 import 'package:farmexpert/models/NewsWidget.dart';
@@ -7,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Tab1 extends StatefulWidget {
-  final News news;
-
-  const Tab1({Key key, this.news}) : super(key: key);
+  const Tab1({
+    Key? key,
+  }) : super(key: key);
   @override
   _Tab1State createState() => _Tab1State();
 }
@@ -46,15 +45,15 @@ class _Tab1State extends State<Tab1> {
                   Text(
                     'News',
                     style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontFamily: 'Righteous',
-                            fontSize: 18),
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Righteous',
+                        fontSize: 18),
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NewsPage(news: widget.news),
+                          builder: (context) => NewsPage(),
                         ),
                       );
                     },
@@ -109,7 +108,10 @@ class _Tab1State extends State<Tab1> {
 class NewsContainer extends StatelessWidget {
   final News news;
 
-  const NewsContainer({Key key, this.news}) : super(key: key);
+  const NewsContainer({
+    Key? key,
+    required this.news,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -147,9 +149,9 @@ class NewsContainer extends StatelessWidget {
                 child: Text(
                   news.newsTitle,
                   style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontFamily: 'Righteous',
-                            fontSize: 16),
+                      fontStyle: FontStyle.normal,
+                      fontFamily: 'Righteous',
+                      fontSize: 16),
                 ),
               ),
             ),
@@ -176,17 +178,23 @@ List<Item> items = [
 class Item {
   String name, imageURL;
   double price;
-  Item({this.name, this.imageURL, this.price});
+  Item({
+    required this.name,
+    required this.imageURL,
+    required this.price,
+  });
 }
 
 class ItemBanner extends StatelessWidget {
   final Item item;
 
-  const ItemBanner({Key key, this.item}) : super(key: key);
+  const ItemBanner({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
     var cartModel = Provider.of<CartModel>(context);
 
     return Padding(
@@ -276,7 +284,7 @@ class ImageBanner extends StatelessWidget {
       initialPage: 1,
       viewportFraction: 0.85,
     );
-    List<Widget> banners = List<Widget>();
+    final banners = <Widget>[];
 
     for (var i = 0; i < items.length; i++) {
       banners.add(ItemBanner(

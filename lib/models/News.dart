@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class NewsList {
   static List<News> newsList = [
     News(
@@ -100,8 +98,8 @@ class News {
   String imgSrc;
 
   News({
-    @required this.newsTitle,
-    @required this.newsBody,
-    this.imgSrc,
+    required this.newsTitle,
+    required this.newsBody,
+    required this.imgSrc,
   });
 }

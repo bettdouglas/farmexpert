@@ -3,20 +3,21 @@ import 'package:farmexpert/models/NewsWidget.dart';
 import 'package:flutter/material.dart';
 
 class NewsPage extends StatelessWidget {
-  final News news;
-
-  const NewsPage({Key key, this.news}) : super(key: key);
+  const NewsPage({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
- 
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('News',style: TextStyle(
-          fontStyle: FontStyle.normal,
-          fontFamily: 'Righteous',
-          fontSize: 24),),
+          title: Text(
+            'News',
+            style: TextStyle(
+                fontStyle: FontStyle.normal,
+                fontFamily: 'Righteous',
+                fontSize: 24),
+          ),
           centerTitle: true,
         ),
         body: Padding(
@@ -39,8 +40,8 @@ class NewsPage extends StatelessWidget {
 class NewsTitle extends StatelessWidget {
   final News news;
   const NewsTitle({
-    Key key,
-    this.news,
+    Key? key,
+    required this.news,
   }) : super(key: key);
 
   @override
@@ -50,10 +51,13 @@ class NewsTitle extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).push(
+          MaterialPageRoute(
             builder: (context) => NewsWidget(
-                  news: news,
-                )));
+              news: news,
+            ),
+          ),
+        );
       },
       child: Row(
         children: <Widget>[
@@ -70,15 +74,17 @@ class NewsTitle extends StatelessWidget {
           ),
           Flexible(
             child: Container(
-              height: screeHeight*0.12,
+              height: screeHeight * 0.12,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Container(
                   child: Text(
-                    news.newsBody,overflow: TextOverflow.fade, style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontFamily: 'Righteous',
-                            fontSize: 14),
+                    news.newsBody,
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                        fontStyle: FontStyle.normal,
+                        fontFamily: 'Righteous',
+                        fontSize: 14),
                   ),
                 ),
               ),

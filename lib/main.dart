@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      builder: (context) => CartModel(),
+      create: (context) => CartModel(),
       child: MaterialApp(
         theme: ThemeData(primaryColor: Colors.white),
         debugShowCheckedModeBanner: false,
@@ -55,7 +55,10 @@ class _FarmExpertHomeState extends State<FarmExpertHome> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8),
               child: IconButton(
-                  icon: Icon(Icons.shopping_cart, color: Colors.orange,),
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.orange,
+                  ),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Cart()));
